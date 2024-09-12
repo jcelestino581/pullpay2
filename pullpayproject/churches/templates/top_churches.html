@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Five Churches</title>
+</head>
+
+<body>
+    <h1>Top Five Churches by Size</h1>
+    <ul>
+        {% for church in top_five_churches %}
+        <li>{{ church.church_name_text }} - Size: {{ church.size_int }}</li>
+        {% empty %}
+        <li>No churches found.</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
