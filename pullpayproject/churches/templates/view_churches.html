@@ -1,0 +1,72 @@
+<!-- church_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church List</title>
+    <style>
+        /* Optional: Style the messages */
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-success {
+            color: green;
+            border-color: lightgreen;
+            background-color: #e6ffe6;
+        }
+
+        .alert-error {
+            color: red;
+            border-color: lightcoral;
+            background-color: #ffe6e6;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Church List</h1>
+
+    {% if messages %}
+    <div id="messages">
+        {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <ul>
+        {%if view_churches%}
+        {% for church in view_churches %}
+        <li>id:{{church.id}} , {{ church.church_name_text }}, Size: {{ church.size_int }},
+            Denomination:{{church.church_type_text}}
+            <a href="{% url 'delete_church' church.id %}">Delete</a>
+            <a href="{% url 'update_church' church.id %}">Update</a>
+        </li>
+        {% endfor %}
+        {% else %}
+        <p>No churches available. Please add a new church.</p>
+        {% endif %}
+    </ul>
+
+    <script>
+        // Wait for the DOM to fully load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Select the message container
+            const messages = document.getElementById('messages');
+            if (messages) {
+                // Set a timeout to remove the messages after 5 seconds
+                setTimeout(function () {
+                    messages.style.display = 'none';  // Hide the message
+                }, 5000);  // 5000 milliseconds = 5 seconds
+            }
+        });
+    </script>
+</body>
+
+</html>

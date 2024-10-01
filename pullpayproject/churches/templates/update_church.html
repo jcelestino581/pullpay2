@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- update_church.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Church</title>
+</head>
+
+<body>
+    <h1>Update Church: {{ church.name }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Renders the form fields -->
+        <button type="submit">Update</button>
+        <a href="{% url 'view_churches' %}">Cancel</a>
+    </form>
+</body>
+
+</html>

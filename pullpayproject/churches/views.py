@@ -19,17 +19,63 @@ def topChurches(request):
 
     return render(request, "top_churches.html", context)
 
+
+def view_churches(request):
+    # Fetch the Church object or return a 404 error if not found
+    # church = get_object_or_404(Church, pk=church_id)
+    view_churches = Church.objects.all().values()
+
+    # Return a formatted response
+    context = {"view_churches": view_churches}
+
+    return render(request, "view_churches.html", context)
+
+
 def add_church(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ChurchForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Church added successfully!')
-            return redirect('add_church')  # Redirect to the same page to display the message
+            messages.success(request, "Church added successfully!")
+            return redirect(
+                "add_church"
+            )  # Redirect to the same page to display the message
     else:
         form = ChurchForm()
-    
-    return render(request, 'add_church.html', {'form': form})
+
+    return render(request, "add_church.html", {"form": form})
+
+
+def delete_church(request, id):
+    church = get_object_or_404(Church, id=id)
+
+    if request.method == "POST":
+        church_name = church.church_name_text
+        church.delete()
+        messages.success(request, f"Successfully deleted church: {church_name}")
+        return redirect("view_churches")
+
+    return render(request, "delete_church.html", {"church": church})
+
+
+def update_church(request, id):
+    church = get_object_or_404(Church, id=id)
+
+    if request.method == "POST":
+        form = ChurchForm(request.POST, instance=church)
+        if form.is_valid():
+            form.save()  # Save the updated church details
+            messages.success(
+                request, f"{church.church_name_text} updated successfully!"
+            )
+            return redirect("view_churches")  # Redirect to the church list page
+    else:
+        form = ChurchForm(
+            instance=church
+        )  # Pre-populate the form with current church data
+
+    return render(request, "update_church.html", {"form": form, "church": church})
+
 
 def success(request):
     return HttpResponse("Church added successfully!")
