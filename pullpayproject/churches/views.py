@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import HttpResponse
-from .models import Church  # Ensure you use the correct model
-from .forms import ChurchForm
+from .models import Church, Users  # Ensure you use the correct model
+from .forms import ChurchForm, UsersForm
 
 
 def index(request):
@@ -77,5 +77,22 @@ def update_church(request, id):
     return render(request, "update_church.html", {"form": form, "church": church})
 
 
+def create_user(request):
+    if request.method == "POST":
+        form = UsersForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the form data to the database
+            return redirect("user_list")  # Redirect to a success page
+    else:
+        form = UsersForm()
+
+    return render(request, "create_user.html", {"form": form})
+
+
 def success(request):
     return HttpResponse("Church added successfully!")
+
+
+def user_list(request):
+    users = Users.objects.all()
+    return render(request, "user_list.html", {"users": users})
