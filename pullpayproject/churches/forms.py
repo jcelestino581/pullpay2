@@ -1,5 +1,5 @@
 from django import forms
-from .models import Church, Users
+from .models import Church, User
 
 
 class ChurchForm(forms.ModelForm):
@@ -11,9 +11,9 @@ class ChurchForm(forms.ModelForm):
         }
 
 
-class UsersForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
     class Meta:
-        model = Users  # Specify the model to create the form from
+        model = User  # Specify the model to create the form from
         fields = [
             "user_first_name",
             "user_last_name",
