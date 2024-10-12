@@ -5,10 +5,16 @@ from .models import Church, User  # Ensure you use the correct model
 from .forms import ChurchForm, UserForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
     return render(request, "index.html")
+
+
+@login_required
+def edit_church_screen(request):
+    return render(request, "Churches/edit_church_screen.html")
 
 
 def topChurches(request):
@@ -130,7 +136,9 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("index")  # Redirect to your home page after successful login
+            return redirect(
+                "index"
+            )  # Redirect to your home page after successful login
         else:
             messages.error(request, "Invalid username or password.")
     return render(request, "Login/login_view.html")  # Your login template

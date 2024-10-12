@@ -4,8 +4,9 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path("", views.login_view, name="login_view"),
+    path("", views.index, name="index"),
     path("index/", views.index, name="index"),
+    path("edit_church_screen", views.edit_church_screen, name="edit_church_screen"),
     path("view_churches/", views.view_churches, name="view_churches"),
     path("add_church/", views.add_church, name="add_church"),
     path("delete_church/<int:id>/", views.delete_church, name="delete_church"),
@@ -20,10 +21,6 @@ urlpatterns = [
         name="login_view",
     ),
     path(
-        "",
-        auth_views.LogoutView.as_view(
-            next_page="login_view"
-        ),  # Redirect to the login page after logout
-        name="logout",
+        "logout/", auth_views.LogoutView.as_view(next_page="login_view"), name="logout"
     ),
 ]

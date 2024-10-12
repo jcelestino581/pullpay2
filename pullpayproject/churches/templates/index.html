@@ -1,23 +1,29 @@
 <!doctype html>
 <html>
-<title>Where you can input churches!</title>
 
 <head>
+    <title>Home Screen</title>
 </head>
 
 <body>
-    <h1>Edit Churches Data</h1>
-    <ul>
-        <li><button class="Add_Church_Button"><a href="add_church">Add Church</a> </button></li>
-        <li><button class="View_Churches_Button"><a href="view_churches">View/Delete/Update churches</a></button></li>
-        <li><button class="Add_User_Button"><a href="create_user">Create User</a></button></li>
-        {% if user.is_authenticated %}
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
-        {% endif %}
-    </ul>
+    <h1>Home Screen!</h1>
+
+    {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}!</p>
+    <!-- Logout button -->
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    {% else %}
+    <p>You are not logged in. Please log in to continue.</p>
+    <!-- Login button -->
+    <a href="{% url 'login_view' %}"><button>Login</button></a>
+    {% endif %}
+
+    <a href="{% url 'edit_church_screen' %}">
+        <button>Go to Edit Church Screen</button>
+    </a>
 </body>
 
 </html>
