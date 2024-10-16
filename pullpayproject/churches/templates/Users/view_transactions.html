@@ -1,0 +1,15 @@
+<html>
+<h1>View Transactions</h1>
+
+<body>
+    {% if user.is_authenticated %}
+    {% for transaction in transactions %}
+    <li>{{transaction.amount}}</li>
+    {% endfor %}
+    {% endif %}
+    <a href="{% url 'index' %}">
+        <button>Home</button>
+    </a>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+<html>
+<h1>View Profile</h1>
+
+<body>
+    {% if user.is_authenticated %}
+    <p>{{first_name}}</p>
+    <p>{{last_name}}</p>
+    <p>{{email}}</p>
+    {% endif %}
+    <a href="{% url 'index' %}">
+        <button>Home</button>
+    </a>
+</body>
+
+</html>

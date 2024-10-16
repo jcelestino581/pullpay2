@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import HttpResponse
-from .models import Church, User  # Ensure you use the correct model
-from .forms import ChurchForm, UserForm
+from .forms import ChurchForm, UserRegistrationForm, TransactionForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from churches.models import User, Transaction, Church
 
 
 def index(request):
@@ -37,6 +37,23 @@ def view_churches(request):
     context = {"view_churches": view_churches}
 
     return render(request, "Churches/view_churches.html", context)
+
+
+@login_required
+def view_profile(request):
+    user = request.user
+    # Example of accessing user attributes
+    first_name = user.user_first_name
+    last_name = user.user_last_name
+    email = user.email
+
+    # Pass user data to the template
+    context = {
+        "first_name": first_name,
+        "last_name": last_name,
+        "email": email,
+    }
+    return render(request, "Users/view_profile.html", context)
 
 
 def view_users(request):
@@ -102,25 +119,25 @@ def update_church(request, id):
 
 def create_user(request):
     if request.method == "POST":
-        form = UserForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()  # Save the form data to the database
             return redirect("user_list")  # Redirect to a success page
     else:
-        form = UserForm()
+        form = UserRegistrationForm()
 
     return render(request, "Users/create_user.html", {"form": form})
 
 
 def register(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save()  # Save the user instance
             login(request, user)  # Automatically log in the user after registration
-            # return redirect("index")  # Redirect to the home page or any other page
+            return redirect("index")  # Redirect to the home page or any other page
     else:
-        form = UserCreationForm()
+        form = UserRegistrationForm()
     return render(request, "Login/register.html", {"form": form})
 
 
@@ -151,3 +168,30 @@ def success(request):
 def user_list(request):
     users = User.objects.all()
     return render(request, "Users/user_list.html", {"users": users})
+
+
+# need to add form
+@login_required
+def create_transaction(request):
+    if request.method == "POST":
+        form = TransactionForm(request.POST)
+        if form.is_valid():
+            # Set the userKey to the current user before saving
+            transaction = form.save(commit=False)
+            transaction.userKey = request.user  # Set the current user as userKey
+            transaction.save()  # Save the transaction to the database
+            return redirect("index")  # Redirect to a success page
+    else:
+        form = TransactionForm()
+
+    return render(request, "Users/create_transactions.html", {"form": form})
+
+
+@login_required
+def view_transactions(request):
+    user = request.user
+    # Example of accessing user attributes
+    transactions = Transaction.objects.filter(userKey=user)
+    context = {"user": user, "transactions": transactions}
+
+    return render(request, "Users/view_transactions.html", context)

@@ -25,10 +25,12 @@ SECRET_KEY = "django-insecure-8u-xep5)n@!yd9&9d^a1e$av4kcshbodk6p&(!*6+l_$mddi@g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 LOGIN_REDIRECT_URL = "/index"
 LOGOUT_REDIRECT_URL = ""
+AUTH_USER_MODEL = "churches.User"
+
 
 # Application definition
 

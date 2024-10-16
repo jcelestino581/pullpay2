@@ -9,21 +9,46 @@
     <h1>Home Screen!</h1>
 
     {% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}!</p>
+    <p>Welcome, {{ user.user_first_name }}!</p>
+
+    <!-- Different content for admin users -->
+    {% if user.is_superuser or user.is_staff %}
+    <h2>Admin Panel</h2>
+    <a href="{% url 'edit_church_screen' %}">
+        <button>Go to Edit Church Screen</button>
+    </a>
+    <a href="{% url 'user_list' %}">
+        <button>Manage Users</button>
+    </a>
+    <!-- Add any other admin-related actions here -->
+
+    <!-- Regular user content -->
+    {% else %}
+    <a href="{% url 'create_transaction' %}">
+        <button>Make a transaction</button>
+    </a>
+    <a href="{% url 'view_profile' %}">
+        <button>View Profile</button>
+    </a>
+    <a href="{% url 'view_transactions' %}">
+        <button>View transactions</button>
+    </a>
+
+    {% endif %}
+
     <!-- Logout button -->
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit">Logout</button>
     </form>
+
     {% else %}
-    <p>You are not logged in. Please log in to continue.</p>
-    <!-- Login button -->
+    <p>You are not logged in. Please log in or register to continue.</p>
+    <!-- Login and Register buttons -->
     <a href="{% url 'login_view' %}"><button>Login</button></a>
+    <a href="{% url 'register' %}"><button>Register</button></a>
     {% endif %}
 
-    <a href="{% url 'edit_church_screen' %}">
-        <button>Go to Edit Church Screen</button>
-    </a>
 </body>
 
 </html>
