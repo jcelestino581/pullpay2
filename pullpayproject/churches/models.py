@@ -6,6 +6,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 import uuid
+from django.conf import settings
 
 # Define choices before the model
 CHURCH_TYPE_CHOICES = [
@@ -122,7 +123,7 @@ class Transaction(models.Model):
         default=0,
         validators=[MinValueValidator(0)],  # Ensures the integer is non-negative
     )
-    userKey = models.ForeignKey(User, on_delete=models.CASCADE)
+    userKey = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Transaction ID: {self.transaction_id} by {self.userKey.user_first_name}: ${self.amount}"
