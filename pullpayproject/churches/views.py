@@ -6,6 +6,28 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from churches.models import User, Transaction, Church
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializer import *
+
+
+class ReactView(APIView):
+    def get(self, request):
+        output = [
+            {
+                "church_name_text": output.church_name_text,
+                "size_int": output.size_int,
+                "church_type_text": output.church_type_text,
+            }
+            for output in Church.objects.all()
+        ]
+        return Response(output)
+
+    def post(self, request):
+        serializer = ReactSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
 
 
 def index(request):
