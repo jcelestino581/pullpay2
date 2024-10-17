@@ -7,7 +7,7 @@ from churches.views import *
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("home", ReactView.as_view, name="home"),
+    path("home", ReactView.as_view(), name="home"),
     path("index/", views.index, name="index"),
     path("edit_church_screen", views.edit_church_screen, name="edit_church_screen"),
     path("view_churches/", views.view_churches, name="view_churches"),

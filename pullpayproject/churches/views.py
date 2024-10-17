@@ -15,11 +15,11 @@ class ReactView(APIView):
     def get(self, request):
         output = [
             {
-                "church_name_text": output.church_name_text,
-                "size_int": output.size_int,
-                "church_type_text": output.church_type_text,
+                "church_name_text": church.church_name_text,
+                "size_int": church.size_int,
+                "church_type_text": church.church_type_text,
             }
-            for output in Church.objects.all()
+            for church in Church.objects.all()
         ]
         return Response(output)
 
