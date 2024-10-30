@@ -8,7 +8,11 @@ from django.contrib.auth.decorators import login_required
 from churches.models import User, Transaction, Church
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializer import *
+from .serializer import ReactSerializer, UserSerializer
+from rest_framework import generics, status
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class ReactView(APIView):
@@ -28,6 +32,17 @@ class ReactView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            logger.error(f"Validation errors: {serializer.errors}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def index(request):

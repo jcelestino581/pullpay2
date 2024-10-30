@@ -17,7 +17,7 @@ urlpatterns = [
     path("create_user", views.create_user, name="create_user"),
     path("user_list/", views.user_list, name="user_list"),
     path("success/", views.success, name="success"),
-    path("register/", views.register, name="register"),
+    # path("register/", views.register, name="register"),
     path(
         "login_view/",
         auth_views.LoginView.as_view(template_name="Login/login_view.html"),
@@ -29,4 +29,5 @@ urlpatterns = [
     path("view_profile", views.view_profile, name="view_profile"),
     path("create_transaction", views.create_transaction, name="create_transaction"),
     path("view_transactions", views.view_transactions, name="view_transactions"),
+    path("register/", RegisterView.as_view(), name="register"),
 ]
