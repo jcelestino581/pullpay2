@@ -1,33 +1,32 @@
-import axios from "axios";
-import React from "react";
+import React from 'react';
+import './home.css';
 
-class Home extends React.Component {
-    state = { details: [] };
-  
-    componentDidMount() {
-      let data;
-      axios.get('http://127.0.0.1:8000/home')
-        .then(res => {
-          data = res.data;
-          this.setState({
-            details: data
-          });
-        });
-    }
-  
-    render() {
-      return (
-        <div>
-          <header> Data Generated from Django </header>
-          <hr></hr>
-          {this.state.details.map((output, id) => (
-            <div key={id}>
-              <h2> {output.church_name_text} </h2>
-            </div>
-          ))}
-        </div>
-      );
-    }
-  }
-  
-  export default Home;
+const LandingPage = () => {
+  return (
+    <div className="landing-container">
+      {/* Hero Section */}
+      <header className="hero-section">
+        <h1>Welcome to Pullpay</h1>
+        <p1>Your church payment solution</p1>
+        <button className="cta-button">Get Started</button>
+      </header>
+
+      {/* Intro Section */}
+      <section className="intro-section">
+        <h2>Why Choose Us?</h2>
+        <p1>
+          Our platform empowers churches to strengthen their missions through dedicated digital solutions designed for generosity and engagement. By simplifying giving, administrative tasks, and personalized engagement, we enable churches to cultivate a culture of generosity. Our suite of tools helps communities of faith increase donations, deepen relationships, and create seamless giving experiences that support growth and community impact.
+        </p1>
+      </section>
+
+
+      {/* Call to Action */}
+      <footer className="cta-footer">
+        <h2>Ready to Get Started?</h2>
+        <button className="cta-button">Sign Up Now</button>
+      </footer>
+    </div>
+  );
+};
+
+export default LandingPage;

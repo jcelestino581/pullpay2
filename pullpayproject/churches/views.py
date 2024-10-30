@@ -45,6 +45,26 @@ class RegisterView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class LoginView(APIView):
+    def post(self, request):
+        username = request.data.get("username")
+        password = request.data.get("password")
+
+        if not username or not password:
+            error_msg = "Username and password are required"
+            logger.error(error_msg)
+            return Response({"error": error_msg}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)  # Logs in user
+            return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+        else:
+            error_msg = "Invalid credentials"
+            logger.error(f"{error_msg} for username: {username}")
+            return Response({"error": error_msg}, status=status.HTTP_400_BAD_REQUEST)
+
+
 def index(request):
     return render(request, "index.html")
 

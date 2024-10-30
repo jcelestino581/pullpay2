@@ -30,4 +30,5 @@ urlpatterns = [
     path("create_transaction", views.create_transaction, name="create_transaction"),
     path("view_transactions", views.view_transactions, name="view_transactions"),
     path("register/", RegisterView.as_view(), name="register"),
+    path("api/login/", LoginView.as_view(), name="login"),
 ]

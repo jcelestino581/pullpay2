@@ -5,19 +5,22 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Home from './pages/home/home';
 import Users from './pages/users/users';
+import Login from './pages/home/sign_in';
+
 
 
 function App() {
   return (
     <div className="App">
-    <BrowserRouter >
+      <BrowserRouter >
         <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/Register" element={<Register />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/" element={<Navigate to="/home" />} /> 
+          <Route path="/home" element={<Home />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Navigate to="/home" />} />
         </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
     </div>
   );
 }

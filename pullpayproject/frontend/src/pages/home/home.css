@@ -1,0 +1,107 @@
+/* Container */
+.landing-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: #4a90e2;
+    color: white;
+    padding: 80px 20px;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    background-color: #f15a24;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    background-color: #d04e1c;
+}
+
+/* Intro Section */
+.intro-section::before {
+    content: '';
+    /* Adding this resolves the warning */
+    display: block;
+    /* Other styles */
+}
+
+.intro-section p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.intro-section {
+    padding: 40px 20px;
+}
+
+.intro-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* Features Section */
+.features-section {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+}
+
+.features-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.features-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.feature-item {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    text-align: left;
+}
+
+.feature-item h3 {
+    font-size: 1.5rem;
+    color: #4a90e2;
+}
+
+/* CTA Footer */
+.cta-footer {
+    padding: 40px 20px;
+    background-color: #333;
+    color: white;
+}
+
+.cta-footer h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
