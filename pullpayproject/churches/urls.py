@@ -31,4 +31,5 @@ urlpatterns = [
     path("view_transactions", views.view_transactions, name="view_transactions"),
     path("register/", RegisterView.as_view(), name="register"),
     path("api/login/", LoginView.as_view(), name="login"),
+    path("api/user-dashboard/", user_dashboard, name="user_dashboard"),
 ]

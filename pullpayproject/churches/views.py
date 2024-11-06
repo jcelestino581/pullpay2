@@ -5,11 +5,13 @@ from .forms import ChurchForm, UserRegistrationForm, TransactionForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view, permission_classes
 from churches.models import User, Transaction, Church
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializer import ReactSerializer, UserSerializer
 from rest_framework import generics, status
+from rest_framework.permissions import IsAuthenticated
 import logging
 
 logger = logging.getLogger(__name__)
@@ -63,6 +65,14 @@ class LoginView(APIView):
             error_msg = "Invalid credentials"
             logger.error(f"{error_msg} for username: {username}")
             return Response({"error": error_msg}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def user_dashboard(request):
+    return Response(
+        {"message": f"Hello, {request.user.username}!"}, status=status.HTTP_200_OK
+    )
 
 
 def index(request):

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './home.css';
 
 const LandingPage = () => {
@@ -8,7 +9,8 @@ const LandingPage = () => {
       <header className="hero-section">
         <h1>Welcome to Pullpay</h1>
         <p1>Your church payment solution</p1>
-        <button className="cta-button">Get Started</button>
+        <button className="cta-button"><Link to="/login">Login</Link></button>
+
       </header>
 
       {/* Intro Section */}
@@ -23,7 +25,7 @@ const LandingPage = () => {
       {/* Call to Action */}
       <footer className="cta-footer">
         <h2>Ready to Get Started?</h2>
-        <button className="cta-button">Sign Up Now</button>
+        <button className="cta-button"><Link to="/register">Register</Link></button>
       </footer>
     </div>
   );

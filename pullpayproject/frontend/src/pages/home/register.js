@@ -64,12 +64,6 @@ export default function Register() {
                 {...register("address")}
             />
 
-            {/* Payment Method (optional) */}
-            <input
-                placeholder="Payment Method (optional)"
-                {...register("payment_method")}
-            />
-
             {/* Password */}
             <input
                 type="password"

@@ -16,8 +16,11 @@ export default function SignIn() {
             const response = await axios.post("http://localhost:8000/api/login/", data);
             console.log("Login successful:", response.data);
 
+            // Store the token in local storage
+            localStorage.setItem('authToken', response.data.token);  // Adjust this if your response has a different token key
+
             // Redirect to dashboard or another page on successful login
-            navigate("/dashboard"); // Change "/dashboard" to the desired route
+            navigate("/user_dashboard"); // Change "/user_dashboard" to the desired route
         } catch (error) {
             console.error("Login failed:", error);
             if (error.response) {
